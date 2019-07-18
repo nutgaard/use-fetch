@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'isomorphic-fetch';
-import {renderHook} from '@testing-library/react-hooks';
-import useFetch, {usePromiseData, empty, FetchData, fetchData} from "../src/use-fetch"
+import {act, renderHook} from '@testing-library/react-hooks';
+import useFetch, {usePromiseData, empty, FetchData, fetchData, createCacheKey} from "../src/use-fetch"
 import {MaybeCls} from "@nutgaard/maybe-ts";
 import FetchMock, {ResponseUtils, SpyMiddleware} from "yet-another-fetch-mock";
 import {cache} from "../src/fetch-cache";
@@ -82,8 +82,24 @@ describe("use-fetch", () => {
         }, 50);
     });
 
+    it("should disregard cache on refetch", (done) => {
+        const source: () => Promise<any> = () => {
+            return fetch('http://example.com/success').then(resp => resp.json());
+        };
+        const renderer = renderHook(() => usePromiseData(source));
+
+        act(() => {
+            renderer.result.current.refetch();
+        });
+
+        setTimeout(() => {
+            expect(spy.size()).toBe(2);
+            done();
+        }, 50);
+    });
+
     it('should call fetcher if lazy', (done) => {
-        const renderer = renderHook(() => useFetch('http://example.com/success', undefined, true));
+        const renderer = renderHook(() => useFetch('http://example.com/success', undefined, { lazy: true }));
 
         setTimeout(() => {
             const result = renderer.result.current;
@@ -133,4 +149,28 @@ describe("use-fetch", () => {
                 done();
             });
     });
+
+
+});
+
+describe('createCacheKey', () => {
+    it('should work without any input', () => {
+        expect(createCacheKey('')).toBe('||GET||||');
+    });
+
+    it('should care about url', () => {
+        expect(createCacheKey('test')).not.toEqual(createCacheKey('test2'));
+    });
+
+    it('should care about http-method', () => {
+        expect(createCacheKey('',{ method: 'get'})).not.toEqual(createCacheKey('',{ method: 'post'}))
+    });
+
+    it('should care about body', () => {
+        expect(createCacheKey('',{ body: 'get'})).not.toEqual(createCacheKey('',{ body: 'post'}))
+    });
+
+    it('should care about header', () => {
+        expect(createCacheKey('',{ headers: { 'Content-Type': 'application'}})).not.toEqual(createCacheKey('',{ headers: { 'Content-Type': 'application2'}}))
+    })
 });

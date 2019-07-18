@@ -13,6 +13,11 @@ export type UseFetchHook<TYPE> = FetchData<TYPE> & {
     refetch(): void;
 };
 
+export interface Config {
+    lazy: boolean;
+    cacheKey?: string;
+}
+
 const initalState: FetchData<any> = {
     isLoading: true,
     isError: false,
@@ -30,29 +35,6 @@ export const empty: UseFetchHook<any> = {
     }
 };
 
-type State<S> = [S, Dispatch<SetStateAction<S>>];
-export async function fetchData<TYPE>(
-    stateArr: State<FetchData<TYPE>>,
-    source: () => Promise<TYPE>,
-    didCancel: boolean
-) {
-    const [state, setState] = stateArr;
-    setState({ ...state, isLoading: true, isError: false });
-
-    try {
-        const json = await source();
-        if (!didCancel) {
-            setState({ isError: false, isLoading: false, data: Maybe.just(json), isOk: true });
-        }
-        return json;
-    } catch (e) {
-        if (!didCancel) {
-            setState({ ...state, isError: true, isLoading: false, isOk: false });
-        }
-        console.error(e);
-    }
-}
-
 function hookImpl<TYPE>(
     source: () => Promise<TYPE>,
     lazy: boolean,
@@ -60,7 +42,7 @@ function hookImpl<TYPE>(
 ): UseFetchHook<TYPE> {
     const [rerun, setRerun] = useState(0);
     const stateArr = useState<FetchData<TYPE>>(initalState);
-    const [state, setState] = stateArr;
+    const [state] = stateArr;
 
     useEffect(
         () => {
@@ -86,21 +68,57 @@ function hookImpl<TYPE>(
     return { ...state, refetch };
 }
 
+export function createCacheKey(url: string, option?: RequestInit) {
+    const method = (option && option.method) || 'GET';
+    const body = (option && option.body && option.body.toString()) || '';
+    const headers = (option && option.headers && JSON.stringify(option.headers)) || '';
+    return [url, method.toUpperCase(), body, headers].join('||');
+}
+
+type State<S> = [S, Dispatch<SetStateAction<S>>];
+export async function fetchData<TYPE>(
+    stateArr: State<FetchData<TYPE>>,
+    source: () => Promise<TYPE>,
+    didCancel: boolean
+) {
+    const [state, setState] = stateArr;
+    setState({ ...state, isLoading: true, isError: false });
+
+    try {
+        const json = await source();
+        if (!didCancel) {
+            setState({ isError: false, isLoading: false, data: Maybe.just(json), isOk: true });
+        }
+        return json;
+    } catch (e) {
+        if (!didCancel) {
+            setState({ ...state, isError: true, isLoading: false, isOk: false });
+        }
+        console.error(e);
+    }
+}
+
 export default function useFetch<TYPE>(
     url: string,
     option?: RequestInit,
-    lazy: boolean = false
+    config: Config = {
+        lazy: false,
+        cacheKey: undefined
+    }
 ): UseFetchHook<TYPE> {
+    const defaultCacheKey: string = createCacheKey(url, option);
+    const cacheKey = config.cacheKey || defaultCacheKey;
     const source = useMemo(
         () => async () => {
-            const resp = await fetch(url, option);
+            const resp = await fetch(cacheKey, url, option);
+
             const json = await resp.json();
             return json as TYPE;
         },
-        [url, option]
+        [url, option, cacheKey]
     );
 
-    return usePromiseData(source, lazy);
+    return usePromiseData(source, config.lazy);
 }
 
 export function usePromiseData<TYPE>(
