@@ -40,9 +40,7 @@ export async function fetchData<TYPE>(
     setState({ ...state, isLoading: true, isError: false });
 
     try {
-        console.log('source', source);
         const json = await source();
-        console.log('source', json);
         if (!didCancel) {
             setState({ isError: false, isLoading: false, data: Maybe.just(json), isOk: true });
         }
@@ -60,7 +58,6 @@ function hookImpl<TYPE>(
     lazy: boolean,
     dependencyList?: DependencyList
 ): UseFetchHook<TYPE> {
-    console.log('source', source);
     const [rerun, setRerun] = useState(0);
     const stateArr = useState<FetchData<TYPE>>(initalState);
     const [state, setState] = stateArr;
@@ -111,6 +108,5 @@ export function usePromiseData<TYPE>(
     lazy: boolean = false,
     dependencyList?: DependencyList
 ): UseFetchHook<TYPE> {
-    console.log('promisedata');
     return hookImpl<TYPE>(source, lazy, dependencyList);
 }
