@@ -70,7 +70,9 @@ function hookImpl<TYPE>(
             let didCancel = false;
 
             if (!lazy) {
-                fetchData(stateArr, source, didCancel);
+                fetchData(stateArr, source, didCancel).catch(() => {
+                    return;
+                });
             }
 
             return () => {
