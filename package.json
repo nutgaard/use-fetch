@@ -76,11 +76,7 @@
                 "lines": 95,
                 "statements": 95
             }
-        },
-        "collectCoverageFrom": [
-            "src/*.{js,ts}"
-        ],
-        "setupTestFrameworkScriptFile": "<rootDir>/setupEnzyme.ts"
+        }
     },
     "prettier": {
         "semi": true,
@@ -98,8 +94,6 @@
         "@commitlint/cli": "^7.1.2",
         "@commitlint/config-conventional": "^7.1.2",
         "@testing-library/react-hooks": "^1.1.0",
-        "@types/enzyme": "^3.10.3",
-        "@types/enzyme-adapter-react-16": "^1.0.5",
         "@types/jest": "^23.3.2",
         "@types/node": "^10.11.0",
         "@types/react": "^16.8.23",
