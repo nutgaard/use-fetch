@@ -40,6 +40,7 @@ class FetchCache {
     }
 
     hasKey(key: string) {
+        // tslint:disable-next-line:strict-type-predicates
         return this.cache[key] !== undefined;
     }
 
