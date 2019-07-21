@@ -1,31 +1,53 @@
-interface Cache {
-    [key: string]: Promise<Response>;
-}
+class FetchCache {
+    private cache: { [key: string]: Promise<Response> } = {};
 
-export const cache: Cache = {};
-
-export default function fetchcache(
-    cacheKey: string,
-    url: string,
-    init?: RequestInit
-): Promise<Response> {
-    if (cache[cacheKey]) {
-        return cache[cacheKey].then(response => response.clone());
-    }
-    const resp: Promise<Response> = fetch(url, init);
-
-    cache[cacheKey] = resp;
-
-    resp.then(
-        response => {
-            if (!response.ok) {
-                delete cache[cacheKey];
-            }
-        },
-        () => {
-            delete cache[cacheKey];
+    fetch(key: string, url: string, init?: RequestInit): Promise<Response> {
+        if (this.hasKey(key)) {
+            return this.get(key).then((resp) => resp.clone());
         }
-    );
 
-    return resp.then(response => response.clone());
+        const result = fetch(url, init);
+        this.put(key, result);
+
+        result.then(
+            (resp) => {
+                if (!resp.ok) {
+                    this.remove(key);
+                }
+            },
+            () => {
+                this.remove(key);
+            }
+        );
+
+        return result.then((resp) => resp.clone());
+    }
+
+    get(key: string) {
+        return this.cache[key];
+    }
+
+    put(key: string, value: Promise<Response>) {
+        this.cache[key] = value;
+    }
+
+    remove(key: string) {
+        delete this.cache[key];
+    }
+
+    clear() {
+        this.cache = {};
+    }
+
+    hasKey(key: string) {
+        return this.cache[key] !== undefined;
+    }
+
+    size() {
+        return Object.keys(this.cache).length;
+    }
 }
+
+const globaleFetchCache = new FetchCache();
+
+export default globaleFetchCache;

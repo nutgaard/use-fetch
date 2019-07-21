@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import FetchMock, { ResponseUtils, SpyMiddleware } from 'yet-another-fetch-mock';
-import fetch, { cache } from './../src/fetch-cache';
+import cache from './../src/fetch-cache';
 
 describe('fetchcache', () => {
     let mock: FetchMock;
@@ -13,45 +13,43 @@ describe('fetchcache', () => {
 
     afterEach(() => {
         mock.restore();
-        Object.keys(cache).forEach(key => {
-            delete cache[key];
-        });
+        cache.clear();
     });
 
-    it('should call underlying fetch', done => {
+    it('should call underlying cache', (done) => {
         mock.get('/test1', {});
-        fetch('key1', '/test1').then(() => {
+        cache.fetch('key1', '/test1').then(() => {
             expect(spy.lastUrl()).toBe('/test1');
             expect(Object.keys(cache)).toHaveLength(1);
             done();
         });
     });
 
-    it('should dedupe similar fetch calls', done => {
+    it('should dedupe similar cache calls', (done) => {
         mock.get('/test2', {});
-        Promise.all([fetch('key2', '/test2'), fetch('key2', '/test2')]).then(() => {
+        Promise.all([cache.fetch('key2', '/test2'), cache.fetch('key2', '/test2')]).then(() => {
             expect(spy.lastUrl()).toBe('/test2');
             expect(spy.size()).toBe(1);
             done();
         });
     });
 
-    it('should remove cache entry on failures', done => {
+    it('should remove cache entry on failures', (done) => {
         mock.get('/test6', ResponseUtils.statusCode(500));
-        fetch('key6', '/test6').then(() => {
+        cache.fetch('key6', '/test6').then(() => {
             expect(spy.lastUrl()).toBe('/test6');
             expect(spy.size()).toBe(1);
-            expect(Object.keys(cache)).toHaveLength(0);
+            expect(cache.size()).toBe(0);
             done();
         });
     });
 
-    it('should support stream json multiple times', done => {
+    it('should support stream json multiple times', (done) => {
         mock.get('/test7', { data: 'string' });
         Promise.all([
-            fetch('key7', '/test7').then(r => r.json()),
-            fetch('key7', '/test7').then(r => r.json())
-        ]).then(data => {
+            cache.fetch('key7', '/test7').then((r) => r.json()),
+            cache.fetch('key7', '/test7').then((r) => r.json())
+        ]).then((data) => {
             expect(spy.lastUrl()).toBe('/test7');
             expect(spy.size()).toBe(1);
             expect(Object.keys(cache)).toHaveLength(1);
