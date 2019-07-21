@@ -27,6 +27,7 @@ describe("use-cache", () => {
         const result = renderer.result.current;
 
         expect(result.status).toBe(Status.PENDING);
+        expect(result.statusCode).toBe(-1);
         expect(result.rerun).toBeInstanceOf(Function);
     });
 
@@ -36,6 +37,7 @@ describe("use-cache", () => {
         setTimeout(() => {
             const result = renderer.result.current;
             expect(result.status).toBe(Status.ERROR);
+            expect(result.statusCode).toBe(500);
             expect(result.rerun).toBeInstanceOf(Function);
             done();
         }, 50);
@@ -48,6 +50,7 @@ describe("use-cache", () => {
         setTimeout(() => {
             const result = renderer.result.current;
             expect(result.status).toBe(Status.OK);
+            expect(result.statusCode).toBe(200);
             expect(result.rerun).toBeInstanceOf(Function);
             done();
         }, 50);

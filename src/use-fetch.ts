@@ -1,11 +1,13 @@
 import useAsync, { AsyncResult } from '@nutgaard/use-async';
-import { useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import cache from './fetch-cache';
 
 export interface Config {
     lazy: boolean;
     cacheKey?: string;
 }
+
+export type FetchResult<TYPE> = { statusCode: number } & AsyncResult<TYPE>;
 
 export function createCacheKey(url: string, option?: RequestInit) {
     const method = (option && option.method) || 'GET';
@@ -21,19 +23,30 @@ export default function useFetch<TYPE>(
         lazy: false,
         cacheKey: undefined
     }
-): AsyncResult<TYPE> {
+): FetchResult<TYPE> {
+    const [statusCode, setStatusCode] = useState<number>(-1);
     const defaultCacheKey: string = createCacheKey(url, option);
     const cacheKey = config.cacheKey || defaultCacheKey;
     const source = useCallback(
         (isRerun: boolean) => {
-            let response = isRerun ? fetch(url, option) : cache.fetch(cacheKey, url, option);
+            setStatusCode(-1);
+            const response = isRerun ? fetch(url, option) : cache.fetch(cacheKey, url, option);
             if (isRerun) {
                 cache.put(cacheKey, response);
             }
-            return response.then((resp) => resp.json());
+            return response.then((resp) => {
+                setStatusCode(resp.status);
+                return resp.json();
+            });
         },
         [url, option, cacheKey]
     );
 
-    return useAsync(source, config.lazy);
+    const asyncResult = useAsync(source, config.lazy);
+    return useMemo(() => {
+        return {
+            ...asyncResult,
+            statusCode
+        };
+    }, [asyncResult, statusCode]);
 }
