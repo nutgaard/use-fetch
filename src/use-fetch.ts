@@ -39,13 +39,19 @@ export default function useFetch<TYPE>(
             }
             return response.then((resp) => {
                 setStatusCode(resp.status);
-                return resp.json();
+                if (!resp.ok) {
+                    throw new Error(resp.statusText);
+                }
+                if ([200, 201, 203, 206].includes(resp.status)) {
+                    return resp.json();
+                }
+                return;
             });
         },
         [url, option, cacheKey]
     );
 
-    const asyncResult = useAsync(source, config.lazy);
+    const asyncResult = useAsync<TYPE>(source, config.lazy);
     return useMemo(() => {
         return {
             ...asyncResult,
