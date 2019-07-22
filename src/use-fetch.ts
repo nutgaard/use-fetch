@@ -2,6 +2,9 @@ import useAsync, { AsyncResult } from '@nutgaard/use-async';
 import { useCallback, useMemo, useState } from 'react';
 import cache from './fetch-cache';
 
+export { default as cache } from './fetch-cache';
+export * from '@nutgaard/use-async';
+
 export interface Config {
     lazy: boolean;
     cacheKey?: string;
