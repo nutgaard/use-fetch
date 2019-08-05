@@ -20,7 +20,7 @@ describe('fetchcache', () => {
         mock.get('/test1', {});
         cache.fetch('key1', '/test1').then(() => {
             expect(spy.lastUrl()).toBe('/test1');
-            expect(Object.keys(cache)).toHaveLength(1);
+            expect(cache.size()).toBe(1);
             done();
         });
     });
@@ -52,7 +52,7 @@ describe('fetchcache', () => {
         ]).then((data) => {
             expect(spy.lastUrl()).toBe('/test7');
             expect(spy.size()).toBe(1);
-            expect(Object.keys(cache)).toHaveLength(1);
+            expect(cache.size()).toBe(1);
             expect(data).toEqual([{ data: 'string' }, { data: 'string' }]);
             done();
         });
