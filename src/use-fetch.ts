@@ -1,4 +1,4 @@
-import useAsync, { AsyncResult } from '@nutgaard/use-async';
+import useAsync, { AsyncData, AsyncResult, Status } from '@nutgaard/use-async';
 import { useCallback, useMemo, useState } from 'react';
 import cache from './fetch-cache';
 
@@ -19,6 +19,28 @@ export function createCacheKey(url: string, option?: RequestInit) {
     return [url, method.toUpperCase(), body, headers].join('||');
 }
 
+function handleResponse<TYPE>(
+    response: Promise<Response>,
+    setStatusCode: (status: number) => void,
+    cacheKey: string
+): Promise<TYPE> {
+    return response
+        .then((resp) => {
+            setStatusCode(resp.status);
+            if (!resp.ok) {
+                throw new Error(resp.statusText);
+            }
+            if ([200, 201, 203, 206].includes(resp.status)) {
+                return resp.json();
+            }
+            return;
+        })
+        .then((json) => {
+            cache.putResolved(cacheKey, json);
+            return json;
+        });
+}
+
 export default function useFetch<TYPE>(
     url: string,
     option?: RequestInit,
@@ -37,21 +59,14 @@ export default function useFetch<TYPE>(
             if (isRerun) {
                 cache.put(cacheKey, response);
             }
-            return response.then((resp) => {
-                setStatusCode(resp.status);
-                if (!resp.ok) {
-                    throw new Error(resp.statusText);
-                }
-                if ([200, 201, 203, 206].includes(resp.status)) {
-                    return resp.json();
-                }
-                return;
-            });
+            return handleResponse<TYPE>(response, setStatusCode, cacheKey);
         },
         [url, option, cacheKey]
     );
-
-    const asyncResult = useAsync<TYPE>(source, config.lazy);
+    const initialConfig: AsyncData<TYPE> | undefined = cache.hasKeyResolved(cacheKey)
+        ? { status: Status.OK, data: cache.getResolved(cacheKey) }
+        : undefined;
+    const asyncResult = useAsync<TYPE>(source, config.lazy, [source], initialConfig);
     return useMemo(() => {
         return {
             ...asyncResult,

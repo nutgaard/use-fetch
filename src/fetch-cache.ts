@@ -1,5 +1,6 @@
 class FetchCache {
     private cache: { [key: string]: Promise<Response> } = {};
+    private resolvedCache: { [key: string]: any } = {};
 
     fetch(key: string, url: string, init?: RequestInit): Promise<Response> {
         if (this.hasKey(key)) {
@@ -27,6 +28,14 @@ class FetchCache {
         return this.cache[key];
     }
 
+    getResolved(key: string) {
+        return this.resolvedCache[key];
+    }
+
+    putResolved(key: string, value: object) {
+        this.resolvedCache[key] = value;
+    }
+
     put(key: string, value: Promise<Response>) {
         this.cache[key] = value;
     }
@@ -37,11 +46,17 @@ class FetchCache {
 
     clear() {
         this.cache = {};
+        this.resolvedCache = {};
     }
 
     hasKey(key: string) {
         // tslint:disable-next-line:strict-type-predicates
         return this.cache[key] !== undefined;
+    }
+
+    hasKeyResolved(key: string) {
+        // tslint:disable-next-line:strict-type-predicates
+        return this.resolvedCache[key] !== undefined;
     }
 
     size() {

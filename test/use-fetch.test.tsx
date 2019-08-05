@@ -4,7 +4,7 @@ import {act, renderHook} from '@testing-library/react-hooks';
 import useFetch, {createCacheKey} from "../src/use-fetch"
 import FetchMock, {ResponseUtils, SpyMiddleware} from "yet-another-fetch-mock";
 import cache from "../src/fetch-cache";
-import { Status } from '@nutgaard/use-async';
+import {Status, WithData} from '@nutgaard/use-async';
 
 describe("use-cache", () => {
     let mock: FetchMock;
@@ -79,6 +79,17 @@ describe("use-cache", () => {
             expect(spy.size()).toBe(0);
             done();
         }, 50);
+    });
+
+    it('should use cached value is present', () => {
+        const cacheKey = 'customkey';
+        cache.putResolved(cacheKey, { data: 123 });
+
+        const renderer = renderHook(() => useFetch('http://example.com/success', undefined, { cacheKey, lazy: false }));
+        const result = renderer.result.current as WithData<{ data: number }>;
+
+        expect(result.status).toBe(Status.RELOADING);
+        expect(result.data).toEqual({ data: 123 });
     });
 });
 
