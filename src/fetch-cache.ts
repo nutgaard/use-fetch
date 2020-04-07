@@ -4,7 +4,7 @@ class FetchCache {
 
     fetch(key: string, url: string, init?: RequestInit): Promise<Response> {
         if (this.hasKey(key)) {
-            return this.get(key).then((resp) => resp.clone());
+            return this.get(key);
         }
 
         const result = fetch(url, init);
@@ -25,7 +25,7 @@ class FetchCache {
     }
 
     get(key: string) {
-        return this.cache[key];
+        return this.cache[key].then((resp) => resp.clone());
     }
 
     getResolved(key: string) {
@@ -37,7 +37,7 @@ class FetchCache {
     }
 
     put(key: string, value: Promise<Response>) {
-        this.cache[key] = value;
+        this.cache[key] = value.then((resp) => resp.clone());
     }
 
     remove(key: string) {

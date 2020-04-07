@@ -57,4 +57,26 @@ describe('fetchcache', () => {
             done();
         });
     });
+
+    it('should clone injected responses to avoid issues when reading', (done) => {
+        mock.get('/test8', { data: 'string8' });
+        const response: Promise<Response> = cache.fetch('key8', '/test8');
+        const brokenkey = 'broken';
+        cache.put(brokenkey, response);
+
+        response.then((resp) => {
+            console.log('reading stream');
+            return resp.json();
+        });
+
+        Promise.all([
+            cache.get(brokenkey),
+            cache.get(brokenkey),
+            cache.get(brokenkey).then((resp) => resp.json())
+        ]).then(([resp1, resp2, data]) => {
+            expect(resp1 === resp2).toBe(false);
+            expect(data).toEqual({ data: 'string8' });
+            done();
+        });
+    });
 });
