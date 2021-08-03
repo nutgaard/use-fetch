@@ -1,7 +1,7 @@
 # use-fetch
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Travis](https://img.shields.io/travis/nutgaard/use-fetch.svg)](https://travis-ci.org/nutgaard/use-fetch)
+[![Build](https://github.com/nutgaard/use-fetch/actions/workflows/master.yaml/badge.svg)](https://github.com/nutgaard/use-fetch/actions/workflows/master.yaml)
 [![codecov](https://codecov.io/gh/nutgaard/use-fetch/branch/master/graph/badge.svg)](https://codecov.io/gh/nutgaard/use-fetch)
 [![dependencies Status](https://david-dm.org/nutgaard/use-fetch/status.svg)](https://david-dm.org/nutgaard/use-fetch)
 
