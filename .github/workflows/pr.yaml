@@ -1,0 +1,36 @@
+name: Test and build
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+env:
+  CI: true
+jobs:
+  test-and-build:
+    name: Test and build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ '12', '14', '16' ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v2
+        name: Node ${{ matrix.node-version }} build
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test:prod
+      - name: Build
+        run: npm run build
+      - name: Report coverage
+        run: npm run report-coverage
