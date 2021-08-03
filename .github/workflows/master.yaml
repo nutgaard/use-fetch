@@ -32,10 +32,10 @@ jobs:
       - name: Report coverage
         run: npm run report-coverage
       - name: Publish docs
-        run: npm run deploy-docs
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
       - name: Publish package
         run: npm run semantic-release
         env:
