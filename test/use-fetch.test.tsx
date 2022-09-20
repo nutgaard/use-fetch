@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'isomorphic-fetch';
 import {act, renderHook} from '@testing-library/react-hooks';
-import useFetch, {createCacheKey} from "../src/use-fetch"
+import useFetch, {createCacheKey, setCacheKeyGenerator} from "../src/use-fetch"
 import FetchMock, {ResponseUtils, SpyMiddleware} from "yet-another-fetch-mock";
 import cache from "../src/fetch-cache";
 import {Status, WithData} from '@nutgaard/use-async';
@@ -90,6 +90,34 @@ describe("use-cache", () => {
 
         expect(result.status).toBe(Status.RELOADING);
         expect(result.data).toEqual({ data: 123 });
+        expect(cache.size()).toBe(1);
+    });
+
+    it('should use default key generator by default', (done) => {
+        const renderer = renderHook(() => useFetch('http://example.com/success', undefined, { lazy: false }));
+
+        setTimeout(() => {
+            const result = renderer.result.current;
+            expect(result.status).toBe(Status.OK);
+            expect(cache.size()).toBe(1);
+            expect(cache.keys()).toContain('http://example.com/success||GET||||');
+            done();
+        }, 50);
+    });
+
+    it('should use provided key generator', (done) => {
+        setCacheKeyGenerator((url: string) => url.toUpperCase());
+
+        const renderer = renderHook(() => useFetch('http://example.com/success', undefined, { lazy: false }));
+        setTimeout(() => {
+            const result = renderer.result.current;
+            expect(result.status).toBe(Status.OK);
+            expect(cache.size()).toBe(1);
+            expect(cache.keys()).toContain('HTTP://EXAMPLE.COM/SUCCESS');
+            setCacheKeyGenerator(createCacheKey);
+            done();
+        }, 50);
+
     });
 });
 

@@ -19,6 +19,12 @@ export function createCacheKey(url: string, option?: RequestInit) {
     return [url, method.toUpperCase(), body, headers].join('||');
 }
 
+export function setCacheKeyGenerator(keygenerator: typeof createCacheKey) {
+    cacheKeyCreator = keygenerator;
+}
+
+let cacheKeyCreator: typeof createCacheKey = createCacheKey;
+
 function handleResponse<TYPE>(
     response: Promise<Response>,
     setStatusCode: (status: number) => void,
@@ -50,8 +56,7 @@ export default function useFetch<TYPE>(
     }
 ): FetchResult<TYPE> {
     const [statusCode, setStatusCode] = useState<number>(-1);
-    const defaultCacheKey: string = createCacheKey(url, option);
-    const cacheKey = config.cacheKey || defaultCacheKey;
+    const cacheKey = config.cacheKey || cacheKeyCreator(url, option);
     const source = useCallback(
         (isRerun: boolean) => {
             setStatusCode(-1);

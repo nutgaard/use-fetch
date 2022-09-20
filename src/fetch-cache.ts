@@ -54,6 +54,10 @@ class FetchCache {
         return this.cache[key] !== undefined;
     }
 
+    keys(): Array<string> {
+        return Object.keys(this.cache);
+    }
+
     hasKeyResolved(key: string) {
         // tslint:disable-next-line:strict-type-predicates
         return this.resolvedCache[key] !== undefined;
