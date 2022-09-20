@@ -918,6 +918,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="globals.html#fetchresult" class="tsd-kind-icon">Fetch<wbr>Result</a>
 		</li>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="globals.html#cachekeycreator" class="tsd-kind-icon">cache<wbr>Key<wbr>Creator</a>
+		</li>
 		<li class=" tsd-kind-variable">
 			<a href="globals.html#globalefetchcache" class="tsd-kind-icon">globale<wbr>Fetch<wbr>Cache</a>
 		</li>
@@ -926,6 +929,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
 			<a href="globals.html#handleresponse" class="tsd-kind-icon">handle<wbr>Response</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#setcachekeygenerator" class="tsd-kind-icon">set<wbr>Cache<wbr>Key<wbr>Generator</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="globals.html#usefetch" class="tsd-kind-icon">use<wbr>Fetch</a>
@@ -1041,6 +1047,7 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 					<section class="tsd-index-section ">
 						<h3>Variables</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#cachekeycreator" class="tsd-kind-icon">cache<wbr>Key<wbr>Creator</a></li>
 							<li class="tsd-kind-variable"><a href="globals.html#globalefetchcache" class="tsd-kind-icon">globale<wbr>Fetch<wbr>Cache</a></li>
 						</ul>
 					</section>
@@ -1049,6 +1056,7 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-function"><a href="globals.html#createcachekey" class="tsd-kind-icon">create<wbr>Cache<wbr>Key</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter tsd-is-not-exported"><a href="globals.html#handleresponse" class="tsd-kind-icon">handle<wbr>Response</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#setcachekeygenerator" class="tsd-kind-icon">set<wbr>Cache<wbr>Key<wbr>Generator</a></li>
 							<li class="tsd-kind-function tsd-has-type-parameter"><a href="globals.html#usefetch" class="tsd-kind-icon">use<wbr>Fetch</a></li>
 						</ul>
 					</section>
@@ -1063,20 +1071,30 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 				<div class="tsd-signature tsd-kind-icon">Fetch<wbr>Result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">AsyncResult</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TYPE</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/use-fetch.ts#L13">use-fetch.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L13">use-fetch.ts:13</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Variables</h2>
+			<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+				<a name="cachekeycreator" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagLet">Let</span> cache<wbr>Key<wbr>Creator</h3>
+				<div class="tsd-signature tsd-kind-icon">cache<wbr>Key<wbr>Creator<span class="tsd-signature-symbol">:</span> <a href="globals.html#createcachekey" class="tsd-signature-type">createCacheKey</a><span class="tsd-signature-symbol"> =&nbsp;createCacheKey</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L26">use-fetch.ts:26</a></li>
+					</ul>
+				</aside>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-variable">
 				<a name="globalefetchcache" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagConst">Const</span> globale<wbr>Fetch<wbr>Cache</h3>
 				<div class="tsd-signature tsd-kind-icon">globale<wbr>Fetch<wbr>Cache<span class="tsd-signature-symbol">:</span> <a href="classes/fetchcache.html" class="tsd-signature-type">FetchCache</a><span class="tsd-signature-symbol"> =&nbsp;new FetchCache()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L67">fetch-cache.ts:67</a></li>
+						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L71">fetch-cache.ts:71</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1093,7 +1111,7 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/use-fetch.ts#L15">use-fetch.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L15">use-fetch.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1119,7 +1137,7 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/use-fetch.ts#L22">use-fetch.ts:22</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L28">use-fetch.ts:28</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1162,6 +1180,29 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="setcachekeygenerator" class="tsd-anchor"></a>
+				<h3>set<wbr>Cache<wbr>Key<wbr>Generator</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">set<wbr>Cache<wbr>Key<wbr>Generator<span class="tsd-signature-symbol">(</span>keygenerator<span class="tsd-signature-symbol">: </span><a href="globals.html#createcachekey" class="tsd-signature-type">createCacheKey</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L22">use-fetch.ts:22</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>keygenerator: <a href="globals.html#createcachekey" class="tsd-signature-type">createCacheKey</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter">
 				<a name="usefetch" class="tsd-anchor"></a>
 				<h3>use<wbr>Fetch</h3>
@@ -1172,7 +1213,7 @@ export <span class="hljs-keyword">function</span> remove<span class="hljs-constr
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/use-fetch.ts#L44">use-fetch.ts:44</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/use-fetch.ts#L50">use-fetch.ts:50</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>

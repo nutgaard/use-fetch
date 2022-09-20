@@ -937,6 +937,9 @@ img { max-width: 100%; }
 					<a href="fetchcache.html#haskeyresolved" class="tsd-kind-icon">has<wbr>Key<wbr>Resolved</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a href="fetchcache.html#keys" class="tsd-kind-icon">keys</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 					<a href="fetchcache.html#put" class="tsd-kind-icon">put</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
@@ -956,6 +959,9 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="../globals.html#fetchresult" class="tsd-kind-icon">Fetch<wbr>Result</a>
 		</li>
+		<li class=" tsd-kind-variable tsd-is-not-exported">
+			<a href="../globals.html#cachekeycreator" class="tsd-kind-icon">cache<wbr>Key<wbr>Creator</a>
+		</li>
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#globalefetchcache" class="tsd-kind-icon">globale<wbr>Fetch<wbr>Cache</a>
 		</li>
@@ -964,6 +970,9 @@ img { max-width: 100%; }
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-not-exported">
 			<a href="../globals.html#handleresponse" class="tsd-kind-icon">handle<wbr>Response</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="../globals.html#setcachekeygenerator" class="tsd-kind-icon">set<wbr>Cache<wbr>Key<wbr>Generator</a>
 		</li>
 		<li class=" tsd-kind-function tsd-has-type-parameter">
 			<a href="../globals.html#usefetch" class="tsd-kind-icon">use<wbr>Fetch</a>
@@ -1000,6 +1009,7 @@ img { max-width: 100%; }
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#getresolved" class="tsd-kind-icon">get<wbr>Resolved</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#haskey" class="tsd-kind-icon">has<wbr>Key</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#haskeyresolved" class="tsd-kind-icon">has<wbr>Key<wbr>Resolved</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#keys" class="tsd-kind-icon">keys</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#put" class="tsd-kind-icon">put</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#putresolved" class="tsd-kind-icon">put<wbr>Resolved</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="fetchcache.html#remove" class="tsd-kind-icon">remove</a></li>
@@ -1017,7 +1027,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L2">fetch-cache.ts:2</a></li>
+						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L2">fetch-cache.ts:2</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1035,7 +1045,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">resolved<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L3">fetch-cache.ts:3</a></li>
+						<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L3">fetch-cache.ts:3</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -1060,7 +1070,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L47">fetch-cache.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L47">fetch-cache.ts:47</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1077,7 +1087,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L5">fetch-cache.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L5">fetch-cache.ts:5</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1106,7 +1116,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L27">fetch-cache.ts:27</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L27">fetch-cache.ts:27</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1129,7 +1139,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L31">fetch-cache.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L31">fetch-cache.ts:31</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1152,7 +1162,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L52">fetch-cache.ts:52</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L52">fetch-cache.ts:52</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1175,7 +1185,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L57">fetch-cache.ts:57</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L61">fetch-cache.ts:61</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1189,6 +1199,23 @@ img { max-width: 100%; }
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+				<a name="keys" class="tsd-anchor"></a>
+				<h3>keys</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<li class="tsd-signature tsd-kind-icon">keys<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L57">fetch-cache.ts:57</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
 				<a name="put" class="tsd-anchor"></a>
 				<h3>put</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
@@ -1198,7 +1225,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L39">fetch-cache.ts:39</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L39">fetch-cache.ts:39</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1224,7 +1251,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L35">fetch-cache.ts:35</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L35">fetch-cache.ts:35</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1250,7 +1277,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L43">fetch-cache.ts:43</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L43">fetch-cache.ts:43</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1273,7 +1300,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/4828ed5/src/fetch-cache.ts#L62">fetch-cache.ts:62</a></li>
+								<li>Defined in <a href="https://github.com/nutgaard/use-fetch/blob/8eb0fa3/src/fetch-cache.ts#L66">fetch-cache.ts:66</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
