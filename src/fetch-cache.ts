@@ -42,6 +42,7 @@ class FetchCache {
 
     remove(key: string) {
         delete this.cache[key];
+        delete this.resolvedCache[key];
     }
 
     clear() {
